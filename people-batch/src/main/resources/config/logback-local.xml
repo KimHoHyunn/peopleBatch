@@ -1,0 +1,49 @@
+<configuration>
+
+    <property name="LOG_FILENAME" value="peoplebatch"/>
+    <property name="LOG_PATH" value="d:/dev/logs/${LOG_FILENAME}"/>
+    <property name="LOG_FILE" value="${LOG_PATH}/${LOG_FILENAME}.log"/>
+
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <Pattern>
+                %d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n
+            </Pattern>
+        </layout>
+    </appender>
+    
+    <appender name="FILE-ROLLING" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_FILE}</file>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_PATH}/archived/${LOG_FILENAME}.%d{yyyy-MM-dd}-%i.log</fileNamePattern>
+            <!-- each archived file, size max 10MB -->
+            <maxFileSize>10MB</maxFileSize>
+            <!-- total size of all archive files, if total size > 20GB, it will delete old archived file -->
+            <totalSizeCap>20GB</totalSizeCap>
+            <!-- 60 days to keep -->
+            <maxHistory>60</maxHistory>
+        </rollingPolicy>
+
+        <encoder>
+            <pattern>%d %p %c{1.} [%t] %m%n</pattern>
+        </encoder>
+    </appender>    
+
+    
+    <logger name="com.people.batch" level="debug" additivity="false">
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="FILE-ROLLING"/>
+    </logger>
+
+    <root level="info">
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="FILE-ROLLING"/>
+        <!-- 이걸 주석 처리하니까 logger에서 정의된 패키지가 실행되는 실행로그만 쌓임. 신기하네~
+        <appender-ref ref="FILE-ROLLING"/>
+        <appender-ref ref="FILE-ROLLING-SAMPLE"/>
+        <appender-ref ref="FILE-ROLLING-SAMPLE2"/>
+        -->
+    </root>
+
+</configuration>
