@@ -71,22 +71,7 @@ public class SystemUtil {
 		return sdf.format(System.currentTimeMillis());
 	}
 	
-	
-	
-	public static final Properties getApplicationProperties() throws IOException {
-		File file = FileUtil.joinPaths(System.getenv("NEXT_EDS_COMMON_PATH"), FileUtil.PATH.CONFIG, "application.properties");
-		return getProperties(file);
-	}
-	
-	public static final Properties getCommonProperties() throws IOException {
-		File file = FileUtil.joinPaths(System.getenv("NEXT_EDS_COMMON_PATH"), FileUtil.PATH.CONFIG, "common.properties");
-		return getProperties(file);
-	}
-	
-	public static final Properties getConfigProperties() throws IOException {
-		File file = FileUtil.joinPaths(System.getProperty("user.dic"), FileUtil.PATH.CONFIG, "config.properties");
-		return getProperties(file);
-	}
+
 	
 	private static final Properties getProperties(File file) throws IOException {
 		FileInputStream fis = new FileInputStream(file);
