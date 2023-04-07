@@ -21,7 +21,12 @@ import lombok.extern.slf4j.Slf4j;
 @Component
 public class StartingActionTasklet implements Tasklet, InitializingBean {
 	
-	@Autowired BatchService batchService; 
+	private BatchService batchService; 
+	
+	@Autowired 
+	public StartingActionTasklet(BatchService batchService) {
+		this.batchService = batchService;
+	}
 
     public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
 
