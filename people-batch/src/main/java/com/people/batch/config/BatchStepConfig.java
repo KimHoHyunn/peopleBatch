@@ -20,9 +20,13 @@ import com.people.batch.tasklet.StartingActionTasklet;
 @EnableBatchProcessing
 public class BatchStepConfig {
 
+	private StepBuilderFactory stepBuilderFactory;
+	
     @Autowired
-    private StepBuilderFactory stepBuilderFactory;
-
+    public BatchStepConfig (StepBuilderFactory stepBuilderFactory) {
+    	this.stepBuilderFactory = stepBuilderFactory;
+    }
+    
     @Bean
     @JobScope
     public Step getStartingStep(@Qualifier("startingActionTasklet") final StartingActionTasklet tasklet,

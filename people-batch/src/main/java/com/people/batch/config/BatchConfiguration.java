@@ -18,8 +18,13 @@ import org.springframework.context.annotation.Configuration;
 // 실수로 job이 실행되는 것을 막을 수 있다.
 //@ConditionalOnProperty(name = "spring.batch.job.names", havingValue = "exampleJob")
 public class BatchConfiguration {
-    @Autowired
+	
     private JobBuilderFactory jobBuilderFactory;
+    
+    @Autowired
+    public BatchConfiguration(JobBuilderFactory jobBuilderFactor) {
+    	this.jobBuilderFactory = jobBuilderFactor;
+    }
 
     @Bean(name = "peopleJob")
     public Job peopleJob(@Qualifier("getStartingStep") final Step startingStep,
